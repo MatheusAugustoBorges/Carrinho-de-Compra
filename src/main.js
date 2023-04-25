@@ -9,7 +9,7 @@ document.querySelector('.cep-button').addEventListener('click', searchCep);
 
 const productResults = await fetchProductsList('computador');
 
-const featuresProduct = productResults.map((product) => {
+productResults.map((product) => {
   const add = createProductElement(product);
   return productElement.appendChild(add);
 });
