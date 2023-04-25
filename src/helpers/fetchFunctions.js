@@ -1,5 +1,5 @@
 export const fetchProduct = () => {
-  // seu código aqui
+  // seu código aquii
 };
 
 export const fetchProductsList = () => {
