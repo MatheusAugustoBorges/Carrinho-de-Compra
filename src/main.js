@@ -19,14 +19,24 @@ const removeTextLoading = () => {
   productElement.removeChild(load);
 };
 
-const createListProduct = async () => {
-  insertTextLoading();
-  const productResults = await fetchProductsList('computador');
-  removeTextLoading();
-  productResults.map((product) => {
-    const add = createProductElement(product);
-    return productElement.appendChild(add);
-  });
+const createListProduct = async (item) => {
+  try {
+    insertTextLoading();
+    const productResults = await fetchProductsList(item);
+    if (!productResults) {
+      throw new Error('Algum erro ocorreu, recarregue a página e tente novamente');
+    } else {
+      removeTextLoading();
+    }
+    productResults.map((product) => {
+      const add = createProductElement(product);
+      return productElement.appendChild(add);
+    });
+  } catch (error) {
+    load.innerHTML = error.message;
+    load.className = 'error';
+    productElement.appendChild(load);
+  }
 };
 
-createListProduct();
+createListProduct('celular');
