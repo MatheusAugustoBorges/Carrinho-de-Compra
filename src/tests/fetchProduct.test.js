@@ -16,10 +16,11 @@ describe('Teste a função fetchProduct', () => {
     expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/items/MLB1405519561');
   });
   it('retorno de fetchProduct é uma estrutura de dados igual ao objeto esperado', async () => {
-    // const aux = await fetchProduct('MLB1405519561')
-    expect(fetchProduct('MLB1405519561')).toEqual(product);
+    const aux = await fetchProduct('MLB1405519561');
+    expect(aux).toEqual(product);
   });
-  it('retorna erro se chamar a fecthProduct sem argumento', () => {
-    return expect(fetchProduct()).rejects.toMatch('ID não informado');
+  it('retorna erro se chamar a fecthProduct sem argumento', async () => {
+    const promise = fetchProduct();
+    await expect(promise).rejects.toThrow('ID não informado');
   });
 });

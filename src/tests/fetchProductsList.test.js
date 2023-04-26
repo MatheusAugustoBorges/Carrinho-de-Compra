@@ -17,7 +17,8 @@ describe('Teste a função fetchProductsList', () => {
     await fetchProductsList('computador');
     expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/sites/MLB/search?q=computador');
   });
-
-  // it('...', () => {
-  // });
+  it('retorna erro se chamar a fecthProduct sem argumento', async () => {
+    const promise = fetchProductsList();
+    await expect(promise).rejects.toThrow('Termo de busca não informado');
+  });
 });
