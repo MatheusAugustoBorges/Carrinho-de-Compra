@@ -2,7 +2,7 @@ import { searchCep } from './helpers/cepFunctions';
 import './style.css';
 import { fetchProductsList, fetchProduct } from './helpers/fetchFunctions';
 import { createProductElement, createCartProductElement } from './helpers/shopFunctions';
-import { saveCartID } from './helpers/cartFunctions';
+import { saveCartID, getSavedCartIDs } from './helpers/cartFunctions';
 
 const productElement = document.querySelector('.products');
 
@@ -43,6 +43,18 @@ const createListProduct = async (item) => {
         const cartList = document.querySelector('.cart__products');
         cartList.appendChild(li);
       });
+    });
+    let idsLocalStorage = [];
+    idsLocalStorage = getSavedCartIDs();
+    console.log(idsLocalStorage);
+    const cartStorage = await Promise.all(idsLocalStorage.map(async (idStorage) => (
+      fetchProduct(idStorage)
+    )));
+    console.log(cartStorage);
+    cartStorage.forEach((cartProductStorage) => {
+      const li = createCartProductElement(cartProductStorage);
+      const cartList = document.querySelector('.cart__products');
+      cartList.appendChild(li);
     });
   } catch (error) {
     load.innerHTML = error.message;
